@@ -1,51 +1,48 @@
 ---
-title: "What Can I Put in My Homelab? Project Ideas for Every Skill Level"
-description: "A roundup of practical services and projects to run in a homelab, from beginner-friendly media servers to advanced self-hosted infrastructure."
+title: "What Can I Put in My Homelab? Hardware Ideas for Every Budget"
+description: "A practical rundown of the physical gear you can build a homelab around — from a single Raspberry Pi to a full server rack."
 pubDate: "Jun 08 2026"
 heroImage: "/blog-placeholder-1.jpg"
 ---
 
-So you've got a spare machine, an old laptop, or a Raspberry Pi gathering dust — what should you actually run on it? Here's a breakdown of homelab projects organized roughly by how much effort they take to set up and maintain.
+A homelab doesn't require a rack full of enterprise servers — it can be a single Raspberry Pi on a shelf. Here's a look at the hardware options at different budgets and ambition levels.
 
-## Beginner-friendly projects
+## Compute: the brains of the lab
 
-These are great starting points if you're new to self-hosting. They're well-documented, low-maintenance, and immediately useful.
+- **Raspberry Pi / single-board computers** — Cheap, low-power, and surprisingly capable for DNS filtering, home automation, or a small Git server. Great starting point and easy to run 24/7 without worrying about your power bill.
+- **Old laptops and desktops** — That dusty machine in the closet is a free homelab. Built-in battery (on laptops) even acts as a mini UPS during power blips.
+- **Mini PCs** — Intel NUCs, Beelink, Minisforum boxes, or corporate small-form-factor desktops (Dell OptiPlex Micro, Lenovo ThinkCentre Tiny, HP EliteDesk Mini) are quiet, power-efficient, and easy to find used for cheap. A favorite for running Proxmox or a Kubernetes cluster.
+- **Used enterprise servers** — Dell PowerEdge, HP ProLiant, or Supermicro rackmount servers show up on the secondhand market for a fraction of their original price. They bring serious RAM and CPU capacity, ECC memory, and remote management (iDRAC/iLO) — at the cost of more noise and higher power draw.
+- **GPUs** — Adding a discrete GPU (even an older one) enables hardware video transcoding for media servers, or local AI/LLM experimentation with tools like Ollama.
 
-- **Network-wide ad blocking** — Pi-hole or AdGuard Home intercept DNS requests and block ads/trackers for every device on your network, not just your browser.
-- **Media server** — Jellyfin or Plex turn a folder of movies, shows, and music into a Netflix-style streaming experience for your household.
-- **File storage and sync** — Nextcloud or Syncthing give you your own private Dropbox/Google Drive without a subscription.
-- **Photo backup** — Immich or PhotoPrism automatically back up and organize photos from your phone, with face recognition and search.
-- **Password manager** — Vaultwarden (a lightweight Bitwarden-compatible server) keeps your credentials in your own hands.
+## Storage: keeping your data safe
 
-## Intermediate projects
+- **Network-attached storage (NAS)** — Off-the-shelf boxes from Synology or QNAP offer a polished, low-maintenance experience. If you'd rather build your own, a PC running TrueNAS or Unraid gives you more control and often better value per terabyte.
+- **Hard drives and SSDs** — NAS-rated spinning drives (WD Red, Seagate IronWolf) are built for 24/7 operation and large capacities; SSDs are worth it for your OS drive or anything latency-sensitive (databases, VM storage).
+- **HBAs and drive enclosures** — Host bus adapters and external drive shelves (DAS) let you expand storage well beyond what fits in a single case — handy once your media library outgrows a couple of drives.
+- **RAID / ZFS setups** — Redundancy across multiple drives protects against a single drive failure. ZFS (via TrueNAS) adds checksumming and snapshots on top, which is invaluable for catching silent data corruption.
 
-Once you're comfortable with the basics, these add more moving parts — reverse proxies, databases, or scheduled jobs.
+## Networking: tying it all together
 
-- **Reverse proxy with automatic HTTPS** — Caddy, Traefik, or Nginx Proxy Manager let you run multiple services behind clean subdomains with free TLS certificates.
-- **Home automation hub** — Home Assistant ties together smart home devices (lights, sensors, thermostats) into dashboards and automations that don't depend on a vendor's cloud.
-- **Personal dashboard** — Homepage, Homarr, or Heimdall give you a single landing page linking to all your self-hosted services.
-- **Download automation ("the *arr stack")** — Sonarr, Radarr, and Prowlarr automate fetching and organizing media to feed into Jellyfin/Plex.
-- **Bookmark and read-it-later tools** — Linkding or Wallabag replace browser bookmark sprawl with a searchable, self-hosted archive.
-- **Git hosting** — Gitea or Forgejo give you a lightweight, self-hosted GitHub alternative for personal projects.
+- **Managed switch** — A switch with VLAN support lets you segment your network — keeping your homelab, IoT devices, and trusted devices in separate zones.
+- **Router / firewall appliance** — Dedicated boxes running pfSense, OPNsense, or a UniFi gateway give you far more control over routing, VPNs, and traffic shaping than a typical ISP router.
+- **Wireless access points** — Separating your AP from your router (e.g., UniFi or TP-Link Omada gear) usually means better coverage and easier multi-floor setups.
+- **Patch panel and cabling** — If you're running Ethernet through walls, a patch panel keeps things tidy and makes troubleshooting much less painful.
 
-## Advanced projects
+## Supporting infrastructure
 
-These involve more architecture decisions — clustering, monitoring, automation pipelines — and reward you with deeper infrastructure skills.
+- **Server rack or open-frame rack** — Even a small 9U or 12U rack keeps gear organized, ventilated, and off your desk. Wall-mount racks work well in tight spaces.
+- **Uninterruptible power supply (UPS)** — Protects against power outages and surges, and can trigger a graceful shutdown of your servers when the battery runs low — essential once you're storing anything you care about.
+- **KVM switch or IP-based remote management** — Lets you access a machine's console without physically connecting a monitor and keyboard — especially useful for headless servers tucked away in a closet.
+- **Labeled cables and a notebook** — Not glamorous, but the cheapest "hardware" upgrade you can make. Future-you will thank present-you.
 
-- **Container orchestration** — Move from `docker compose` to Docker Swarm or a lightweight Kubernetes distro (k3s, MicroK8s) to learn how production infrastructure is actually run.
-- **Monitoring and alerting** — Prometheus + Grafana (or the simpler Uptime Kuma) give you dashboards and alerts for every service and host in your lab.
-- **Centralized logging** — The Grafana Loki stack or an ELK/EFK setup aggregates logs from all your machines and containers in one searchable place.
-- **Infrastructure as code** — Manage your homelab with Ansible, Terraform, or Proxmox + cloud-init so rebuilding a host is a single command instead of a weekend project.
-- **VPN and remote access** — WireGuard or Tailscale let you securely reach your homelab from anywhere without opening ports to the internet.
-- **Virtualization platform** — Proxmox VE or XCP-ng let a single physical box host dozens of VMs and containers, each isolated and independently manageable.
-- **Backup and disaster recovery** — Restic, Borg, or Proxmox Backup Server give you versioned, encrypted backups — and a chance to practice actually restoring them.
+## Putting together a starter shopping list
 
-## A few tips before you dive in
+If you're just getting going, a reasonable first setup looks like:
 
-1. **Start small.** Pick one service, get it running reliably, and only then add the next. A homelab with three solid services beats one with twenty flaky ones.
-2. **Use Docker Compose early.** It makes services reproducible, easy to tear down, and easy to document — which matters a lot once you have more than a handful running.
-3. **Write down your setup.** Future-you will not remember why you opened that port or what password you used. Even a simple Markdown file per service helps enormously.
-4. **Plan your storage before you need it.** Media libraries and backups grow faster than you expect — think about redundancy (RAID, ZFS, or simple periodic backups) from the start.
-5. **Segment your network.** Put your homelab on its own VLAN or subnet so a compromised service can't reach the rest of your home network.
+1. One used mini PC or small-form-factor desktop (8–16 GB RAM is plenty to start)
+2. One or two NAS-rated hard drives in an external enclosure or small NAS
+3. A basic managed switch if you want to experiment with VLANs
+4. A small UPS to protect whatever you build
 
-Whatever you choose, the real value of a homelab isn't the services themselves — it's the hands-on experience with networking, storage, automation, and security that you simply can't get any other way.
+You can always scale up to a rack-mounted server and dedicated networking gear once you know which services you actually want to keep running long-term — there's no need to buy enterprise hardware on day one.
